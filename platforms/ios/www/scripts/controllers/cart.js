@@ -7,11 +7,8 @@ app.controller('CartController',['$scope', 'Products', function($scope, Products
     Products.addOneProduct(product);
   };
 
-  $scope.removeProduct = function(product){
-      product.quantity <= 1 ? Products.removeProduct(product) : Products.removeOneProduct(product);
-      if(!$scope.$$phase) {
-        $scope.apply();
-      }
+  $scope.removeProduct = function(product, index){
+    product.quantity < 1 ? Products.removeProduct(product, index) : Products.removeOneProduct(product);
   };
 
 

@@ -1,4 +1,20 @@
-<ion-content>
-  <ion-purchase></ion-purchase>
-</ion-content>
-<ion-purchase-footer></ion-purchase-footer>
+
+
+<ion-side-menus>
+  
+  <ion-side-menu-content>
+    <ion-header-bar class="bar-dark">
+      <button class="button icon ion-arrow-left-a" ng-click='back()'></button>
+      <h1 class="title">Ionic Shopping Checkout</h1>
+      <button class='button icon ion-bag' ng-click='toggleRightSideMenu()'></button>
+    </ion-header-bar>
+    <ion-purchase></ion-purchase>
+    <ion-purchase-footer></ion-purchase-footer>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="right">
+    <ion-cart has-header='true' ng-controller='CartController'></ion-cart>
+  </ion-side-menu>
+
+</ion-side-menus>
+

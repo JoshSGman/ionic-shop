@@ -6,25 +6,20 @@ app.service('Products', function(){
   var images = ['images/polaroid.jpg','images/canon.jpg','images/nikon.jpg','images/leica.jpeg'];
   var prices = [150, 800, 800, 2000];
 
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 15; i++) {
     var ind = Math.floor(Math.random() * 4);
-    
     var prod         = {};
-    prod.id          = i+1;
     prod.title       = 'Polaroid Camera';
     prod.image       = images[ind];
     prod.description = 'A retro camera';
-    prod.quantity    = ind+1;
+    prod.quantity    = Math.floor(Math.random() * 2);
     prod.price       = prices[ind];
     this.products.push(prod);
   }
 
   this.removeProduct = function(product) {
-    this.products.forEach(function(prod, i, collection){
-      if (product.id === prod.id) {
-        this.products.splice(i, 1);
-      }
-    }.bind(this));
+    var index = this.products.indexOf(product);
+    this.products.splice(index, 1);
   };
 
   this.addOneProduct = function(product) {

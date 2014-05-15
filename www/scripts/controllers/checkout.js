@@ -1,7 +1,15 @@
 
-app.controller('CheckoutController',['$scope', 'Products', function($scope, Products){
+app.controller('CheckoutController',['$scope', '$state', '$ionicSideMenuDelegate', 'Products', function($scope, $state, $ionicSideMenuDelegate, Products){
   // PRODUCTS IN CART //
   $scope.total = Products.cartTotal();
-  console.log($scope.total);
+  $scope.products = Products.products;
+
+  $scope.toggleRightSideMenu = function() {
+    $ionicSideMenuDelegate.toggleRight();
+  };
+
+  $scope.back = function(){
+    $state.go('cart');
+  };
 
 }]);
