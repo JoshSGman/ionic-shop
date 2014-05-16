@@ -22,6 +22,8 @@ app.run(function($ionicPlatform) {
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
+  Stripe.setPublishableKey('pk_test_hXnwnglXuPWNu5NRmmJJdrwX');
+
   $stateProvider
     .state('home', {
       url: '/home',
