@@ -1,20 +1,10 @@
 
 <span class='purchase-form-description'>Please enter your credit card details:</span>
+
 <div class='list purchase-form'>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.firstName' placeholder='First Name'>
-  </label>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.lastName' placeholder='Last Name'>
-  </label>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.cc' placeholder='Credit Card Number'>
-  </label>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.exp' placeholder='MM/YYYY'>
-  </label>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.cvc' placeholder='CSV'>
-  </label>
+  <checkout-name ng-if='hasNameDir'></checkout-name>
+  <checkout-card></checkout-card>
+  <checkout-address ng-if='hasAddressDir'></checkout-address>
+  <checkout-email ng-if='hasEmailDir'></checkout-email>
 </div>
 <h2 class='purchase-total'>Total: ${{total}}</h2>

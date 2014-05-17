@@ -2,6 +2,7 @@
 app.service('Products',[ function(){
 
   this.products = [];
+  this.checkout = {};
 
   var images = ['images/polaroid.jpg','images/canon.jpg','images/nikon.jpg','images/leica.jpeg'];
   var prices = [150, 800, 800, 2000];
@@ -50,34 +51,43 @@ app.service('Products',[ function(){
 
 }]);
 
-app.service('stripeCheckout',['Products', '$http', function(Products, $http){
-  /* CHECKOUT FORM */
-  this.checkout = {
-    firstName : '',
-    lastName  : '',
-    cc        : '',
-    exp       : '',
-    cvc       : ''
+app.service('checkoutValidation', function(){
+  this.validateCreditCardNumber = function(cc){
+    return Stripe.card.validateCardNumber(cc);
   };
 
-  this.processCheckout = function(checkoutDetails, responseHandler){
+  this.validateExpiry = function(month, year){
+    return Stripe.card.validateExpiry(month, year);
+  };
+
+  this.validateCVC = function(cvc){
+    return Stripe.card.validateCVC(cvc);
+  };
+
+  this.validateEmail = function(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+});
+
+app.service('stripeCheckout',['Products','checkoutValidation' ,'$http', function(Products, checkoutValidation, $http){
+
+  this.processCheckout = function(checkoutDetails){
     var cc    = checkoutDetails.cc;
     var month = checkoutDetails.exp.slice(0,2);
     var year  = checkoutDetails.exp.slice(3);
     var cvc   = checkoutDetails.cvc;
-    // if (!Stripe.card.validateCardNumber(cc)) return;
-    // if (!Stripe.card.validateExpiry(month, year)) return;
-    // if (!Stripe.card.validateCVC(cvc)) return;
+
     Stripe.card.createToken({
       number    : cc,
       cvc       : cvc,
       exp_month : month,
       exp_year  : year
-    }, responseHandler);
+    }, stripeResponseHandler);
 
   };
 
-  this.stripeResponseHandler = function(status, response) {
+  var stripeResponseHandler = function(status, response) {
       if (response.error) {
           console.log(response.error);
       } else {

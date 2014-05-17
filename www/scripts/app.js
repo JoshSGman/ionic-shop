@@ -25,11 +25,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
   Stripe.setPublishableKey('pk_test_hXnwnglXuPWNu5NRmmJJdrwX');
 
   $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl : 'views/home.html',
-      controller: 'MainController' 
-    })
     .state('cart',{
       url: '/cart',
       templateUrl: 'views/cart.html',
@@ -41,6 +36,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'CheckoutController'
     });
 
-    $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('checkout');
 
 });
