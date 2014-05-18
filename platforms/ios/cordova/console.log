@@ -18,3 +18,10 @@
 2014-05-16 18:56:55.144 HelloCordova[24425:70b] [CDVTimer][TotalPluginStartup] 8.091986ms
 2014-05-16 18:56:55.267 HelloCordova[24425:70b] Resetting plugins due to page load.
 2014-05-16 18:56:56.074 HelloCordova[24425:70b] Finished load of: file:///Users/JoshSGman/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/B8EDD2E2-32D8-47C3-A85E-681F74F25D12/HelloCordova.app/www/index.html#/checkout
+2014-05-18 07:58:03.575 HelloCordova[92013:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-18 07:58:03.622 HelloCordova[92013:70b] Unlimited access to network resources
+2014-05-18 07:58:06.153 HelloCordova[92013:70b] [CDVTimer][statusbar] 268.821001ms
+2014-05-18 07:58:06.153 HelloCordova[92013:70b] [CDVTimer][TotalPluginStartup] 269.226015ms
+2014-05-18 07:58:06.432 HelloCordova[92013:70b] Resetting plugins due to page load.
+2014-05-18 07:58:07.324 HelloCordova[92013:70b] Finished load of: file:///Users/JoshSGman/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/B8EDD2E2-32D8-47C3-A85E-681F74F25D12/HelloCordova.app/www/index.html#/checkout
+2014-05-18 07:58:20.568 HelloCordova[92013:70b] Received memory warning.

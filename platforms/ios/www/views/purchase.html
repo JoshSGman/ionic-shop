@@ -3,16 +3,9 @@
 
 <div class='list purchase-form'>
   <checkout-name ng-if='hasNameDir'></checkout-name>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.cc' ng-focus='clearFieldCC()' placeholder='Credit Card Number'>
-  </label>
-  <label class='item item-input'>
-    <input type='tel' ng-model='checkout.exp' ng-focus='clearFieldExp()' placeholder='MM/YYYY'>
-  </label>
-  <label class='item item-input'>
-    <input type='text' ng-model='checkout.cvc' ng-focus='clearFieldCVC()' placeholder='CSV'>
-  </label>
+  <checkout-card></checkout-card>
   <checkout-address ng-if='hasAddressDir'></checkout-address>
   <checkout-email ng-if='hasEmailDir'></checkout-email>
 </div>
+
 <h2 class='purchase-total'>Total: ${{total}}</h2>

@@ -39,11 +39,12 @@ app.directive('ionCheckout', function($state){
 });
 
 // IONIC PURCHASE DIRECTIVE
-app.directive('ionPurchase', function($compile, Products){
+app.directive('ionPurchase', function(Products){
   var link = function(scope, element, attr) {
     scope.checkout = Products.checkout;
     //*** Total sum of products in usd by default ***\\
-    scope.total = Products.cartTotal();
+    scope.total = Products.total;
+    
     //*** Add address input fields when has-address attribute is on ion-purchase element ***\\
     if (element[0].hasAttribute('has-address')) {scope.hasAddressDir = true;}
 
@@ -52,11 +53,6 @@ app.directive('ionPurchase', function($compile, Products){
 
     //*** Add name input fields when has-name attribute is on ion-purchase element ***\\
     if (element[0].hasAttribute('has-name')) { scope.hasNameDir = true;}
-
-    /* Add extra space to the bottom of the pane when additional inputs 
-       are added to account for the bottom of the pane on scroll
-     */
-
   };
 
   return {
@@ -75,7 +71,10 @@ app.directive('ionPurchaseFooter', function($compile, Products, stripeCheckout, 
     element.addClass('bar bar-footer bar-dark');
 
     element.on('click', function(){
-      scope.processCheckout(scope.checkout);
+      if (checkoutValidation.checkAll(scope.checkout)) {
+        scope.processCheckout(scope.checkout);
+      }
+      
     });
   };
 
@@ -111,6 +110,7 @@ app.directive('cardNumInput', function(checkoutValidation){
         scope.checkout.cc = 'Please enter a valid credit card #';
         return;
       }
+      checkoutValidation.cardType(scope.checkout.cc);
     };
 
     scope.onNumFocus = function(){
@@ -366,3 +366,22 @@ app.directive('checkoutEmail', function(checkoutValidation){
 
 
 // CUSTOMIZATION DIRECTIVES
+
+app.directive('mouseDownUp', function(){
+  var link = function(scope, element, attr) {
+
+    element.on('touchstart', function(){
+      element.css({opacity: 0.5});
+    });
+
+    element.on('touchend', function(){
+      element.css({opacity: 1});
+    });
+
+  };
+
+  return {
+    restrict: 'AC',
+    link: link
+  };
+})

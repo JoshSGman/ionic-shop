@@ -3,11 +3,13 @@ app.service('Products',[ function(){
 
   this.products = [];
   this.checkout = {};
+  this.total;
 
+  // TO BE REMOVED
   var images = ['images/polaroid.jpg','images/canon.jpg','images/nikon.jpg','images/leica.jpeg'];
   var prices = [150, 800, 800, 2000];
 
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 10; i++) {
     var ind = Math.floor(Math.random() * 4);
     
     var prod         = {};
@@ -24,16 +26,19 @@ app.service('Products',[ function(){
     this.products.forEach(function(prod, i, collection){
       if (product.id === prod.id) {
         this.products.splice(i, 1);
+        updateTotal();
       }
     }.bind(this));
   };
 
   this.addOneProduct = function(product) {
     product.quantity++;
+    updateTotal();
   };
 
   this.removeOneProduct = function(product) {
     product.quantity--;
+    updateTotal();
   };
 
   this.cartTotal = function() {
@@ -49,9 +54,42 @@ app.service('Products',[ function(){
     return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   };
 
+  var updateTotal = function(){
+    this.total = this.cartTotal();
+  }.bind(this);
+
+  updateTotal();
+
 }]);
 
 app.service('checkoutValidation', function(){
+   var cardTypes = {
+    visa: /^4[0-9]{6,}$/,
+    masterCard : /^5[1-5][0-9]{5,}$/,
+    amex: /^3[47][0-9]{5,}$/,
+    diners : /^3(?:0[0-5]|[68][0-9])[0-9]{4,}$/,
+    discover: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
+    jcb: /^(?:2131|1800|35[0-9]{3})[0-9]{3,}$/
+   };
+
+   var cardTypeImage = {
+    visa: '../../images/creditcards/visa.png',
+    masterCard: '../../images/creditcards/mastercard.png',
+    amex: '../../images/creditcards/amex.png',
+    diners: '../../images/creditcards/diners.png',
+    discover: '../../images/creditcards/discover.png',
+    jcb: '../../images/creditcards/jcb.png'
+   };
+
+   this.cardType = function(cc) {
+    cc = cc.split(' ').join('');
+    for (var cType in cardTypes) {
+      if (cardTypes[cType].test(cc)) {
+        console.log(cardTypeImage[cType]);
+      }
+    }
+   };
+
   this.validateCreditCardNumber = function(cc){
     return Stripe.card.validateCardNumber(cc);
   };
@@ -63,26 +101,53 @@ app.service('checkoutValidation', function(){
   this.validateCVC = function(cvc){
     return Stripe.card.validateCVC(cvc);
   };
+
+  this.validateEmail = function(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
+  this.checkAll = function(checkoutDetails) {
+    for (var input in checkoutDetails) {
+      /* Check validation for credit card number */
+      if (input === 'cc' && !this.validateCreditCardNumber(checkoutDetails[input])) {
+        return false;
+      }
+      /* Check validation for expiration date on credit card */
+      if (input === 'exp' && !this.validateExpiry(checkoutDetails[input].slice(0,2), checkoutDetails[input].slice(3))) {
+        return false;
+      }
+      /* Check validation for cvc number on credit card */
+      if (input === 'cvc' && !this.validateCVC(checkoutDetails[input])) {
+        return false;
+      }
+
+      if (input === 'email' && !this.validateEmail(checkoutDetails[input])) {
+        return false;
+      }
+
+    }
+  }.bind(this);
 });
 
 app.service('stripeCheckout',['Products','checkoutValidation' ,'$http', function(Products, checkoutValidation, $http){
 
   this.processCheckout = function(checkoutDetails){
     var cc    = checkoutDetails.cc;
-    // var month = checkoutDetails.exp.slice(0,2);
-    // var year  = checkoutDetails.exp.slice(3);
-    // var cvc   = checkoutDetails.cvc;
+    var month = checkoutDetails.exp.slice(0,2);
+    var year  = checkoutDetails.exp.slice(3);
+    var cvc   = checkoutDetails.cvc;
 
     Stripe.card.createToken({
       number    : cc,
       cvc       : cvc,
       exp_month : month,
       exp_year  : year
-    }, this.stripeResponseHandler);
+    }, stripeResponseHandler);
 
   };
 
-  this.stripeResponseHandler = function(status, response) {
+  var stripeResponseHandler = function(status, response) {
       if (response.error) {
           console.log(response.error);
       } else {

@@ -11,7 +11,7 @@
     </ion-header-bar>
     <!-- SIDE MENU CONTENT -->
     <ion-content>
-      <ion-purchase ></ion-purchase> 
+      <ion-purchase></ion-purchase> 
     </ion-content>
     <!-- SIDE MENU CONTENT FOOTER -->
     <ion-purchase-footer></ion-purchase-footer> 
@@ -26,7 +26,9 @@
         <button class='button icon ion-bag' ng-click='toggleRightSideMenu()'></button>
       </ion-header-bar>
       <!-- SIDE MENU RIGHT CONTENT -->
-        <ion-cart products='products'></ion-cart>
+        <ion-content>
+          <ion-cart products='products'></ion-cart>
+        </ion-content>
       <!-- SIDE MENU RIGHT CONTENT FOOTER -->
       <ion-purchase-footer></ion-purchase-footer>
   </ion-side-menu>
