@@ -29,45 +29,25 @@ app.directive('ionCart', function(Products){
 
 app.directive('ionProductImage', function($timeout, $ionicModal, $ionicSlideBoxDelegate){
   var link = function(scope, element, attr) {
-    $ionicModal.fromTemplateUrl('views/partials/cart-image-modal.html', {
-      animation: 'slide-left-right',
-      scope: scope
-    }).
-    then(function(modal){
-      scope.modal = modal;
-    });
-
-    scope.openModal = function() {
-      scope.modal.show();
-      $timeout( function() {
-        $ionicSlideBoxDelegate.update();
-      });
-    };
 
     scope.closeModal = function() {
       scope.modal.hide();
+      scope.modal.remove();
     };
 
-    scope.nextSlide = function() {
-      $ionicSlideBoxDelegate.next();
-    };  
-
-    //Cleanup the modal when we're done with it!
-    scope.$on('$destroy', function() {
-      scope.modal.remove();
-    });
-    // Execute action on hide modal
-    scope.$on('modal.hide', function() {
-      // Execute action
-      console.log('hiding');
-    });
-    // Execute action on remove modal
-    scope.$on('modal.removed', function() {
-      // Execute action
-    });
-
     element.on('click', function(){
-      scope.openModal();
+      $ionicModal.fromTemplateUrl('views/partials/cart-image-modal.html', {
+        animation: 'slide-left-right',
+        scope: scope
+      })
+      .then(function(modal){
+        scope.modal = modal;
+        scope.modal.show();
+        $timeout( function() {
+          $ionicSlideBoxDelegate.update();
+        });
+      });
+
     });
 
   };

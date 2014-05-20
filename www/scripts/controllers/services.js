@@ -97,6 +97,7 @@ app.service('CheckoutValidation', function(){
   };
 
   this.checkAll = function(checkoutDetails) {
+    if (Object.keys(checkoutDetails).length === 0) { return false; }
     for (var input in checkoutDetails) {
       /* Check validation for credit card number */
       if (input === 'cc' && !this.validateCreditCardNumber(checkoutDetails[input])) {

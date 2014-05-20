@@ -1,14 +1,18 @@
 <div class="modal image-slider-modal">
 
   <ion-header-bar>
+
     <h1 class="title">More Images</h1>
-    <button class="button icon ion-close-circled" ng-click='closeModal()'></button>
+    <button class="button button-light icon ion-ios7-undo-outline" ng-click='closeModal()'></button>
   </ion-header-bar>
 
     <ion-slide-box class='image-slider-box' does-continue='true'>
-      <ion-slide ng-repeat='image in product.image'  class='image-slide'>
+      <ion-slide ng-repeat='image in product.image' class='image-ion-slide'>
         <ion-content>
-          <img src='{{image}}' class='image-slide'>
+          <div class='image-slide-div'>
+            <h3 class='image-slide-description'>{{product.description}}</h3>
+            <img src='{{image}}' class='image-slide'>
+          </div>
         </ion-content>
       </ion-slide>
     </ion-slide-box>

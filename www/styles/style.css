@@ -8,7 +8,7 @@ body {
 
 
 .scroll-content {
-
+  
 }
 
 .product-card {
@@ -28,6 +28,7 @@ body {
   max-height: 90px !important; 
   max-width: 90px !important;
   right: 5px !important;
+  cursor: pointer;
 }
 
 .product-title {
@@ -68,18 +69,30 @@ body {
 }
 
 
+.image-slider-modal {
+  height: 200px;
+}
 
 .image-slider-box {
-  height: 400px;
+  height: 450px;
   text-align: center;
 }
 
-.image-slide {
-  width: 300px;
+.image-ion-slide {
+
 }
 
-.image-slider-content {
+.image-slide-div {
+  margin-top: 10px;
+}
 
+.image-slide-description {
+
+}
+
+.image-slide {
+  height: auto;
+  width: 250px;
 }
 
 /* PURCHASE */

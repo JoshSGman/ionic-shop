@@ -11,7 +11,7 @@ app.controller('CartController',['$scope', 'Products', function($scope, Products
   var prices = [150, 800, 800, 2000];
 
   if (!$scope.products.length) {
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 25; i++) {
       var ind = Math.floor(Math.random() * 4);
       
       var prod         = {};
