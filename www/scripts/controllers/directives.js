@@ -2,6 +2,12 @@
 //IONIC CART DIRECTIVE
 app.directive('ionCart', function(Products){
   var link = function(scope, element, attr) {
+    scope.$watch(function(){
+      return Products.products;
+    }, function(){
+      Products.updateTotal();
+    });
+
     scope.addProduct = function(product) {
       Products.addOneProduct(product);
     };
@@ -21,19 +27,82 @@ app.directive('ionCart', function(Products){
   };
 });
 
+app.directive('ionProductImage', function($timeout, $ionicModal, $ionicSlideBoxDelegate){
+  var link = function(scope, element, attr) {
+    $ionicModal.fromTemplateUrl('views/partials/cart-image-modal.html', {
+      animation: 'slide-left-right',
+      scope: scope
+    }).
+    then(function(modal){
+      scope.modal = modal;
+    });
+
+    scope.openModal = function() {
+      scope.modal.show();
+      $timeout( function() {
+        $ionicSlideBoxDelegate.update();
+      });
+    };
+
+    scope.closeModal = function() {
+      scope.modal.hide();
+    };
+
+    scope.nextSlide = function() {
+      $ionicSlideBoxDelegate.next();
+    };  
+
+    //Cleanup the modal when we're done with it!
+    scope.$on('$destroy', function() {
+      scope.modal.remove();
+    });
+    // Execute action on hide modal
+    scope.$on('modal.hide', function() {
+      // Execute action
+      console.log('hiding');
+    });
+    // Execute action on remove modal
+    scope.$on('modal.removed', function() {
+      // Execute action
+    });
+
+    element.on('click', function(){
+      scope.openModal();
+    });
+
+  };
+
+  return {
+    restrict: 'A',
+    link: link,
+    scope: '='
+  };
+});
+
 // IONIC CHECKOUT DIRECTIVE
 app.directive('ionCheckout', function($state){
   var link = function(scope, element, attr) {
 
     element.addClass('bar bar-footer bar-dark');
     element.on('click', function(e){
-      $state.go('checkout');
+      $state.go(scope.path);
+    });
+
+    element.on('touchstart', function(){
+      element.css({opacity: 0.8});
+    });
+
+    element.on('touchend', function(){
+      element.css({opacity: 1});
     });
   };
 
   return {
     restrict: 'AEC',
     templateUrl: 'views/checkout-footer.html',
+    scope: {
+      path : '=path'
+    },
     link: link
   };
 });
@@ -41,6 +110,12 @@ app.directive('ionCheckout', function($state){
 // IONIC PURCHASE DIRECTIVE
 app.directive('ionPurchase', function(Products){
   var link = function(scope, element, attr) {
+    scope.$watch(function(){
+      return Products.total;
+    }, function(){
+      scope.total = Products.total;
+    });
+
     scope.checkout = Products.checkout;
     //*** Total sum of products in usd by default ***\\
     scope.total = Products.total;
@@ -63,7 +138,7 @@ app.directive('ionPurchase', function(Products){
 });
 
 //IONIC PURCHASE FOOTER DIRECTIVE
-app.directive('ionPurchaseFooter', function($compile, Products, stripeCheckout, checkoutValidation){
+app.directive('ionPurchaseFooter', function($compile, Products, stripeCheckout, CheckoutValidation){
   var link = function(scope, element, attr) {
     scope.checkout = Products.checkout;
     scope.processCheckout = stripeCheckout.processCheckout;
@@ -71,10 +146,21 @@ app.directive('ionPurchaseFooter', function($compile, Products, stripeCheckout, 
     element.addClass('bar bar-footer bar-dark');
 
     element.on('click', function(){
-      if (checkoutValidation.checkAll(scope.checkout)) {
+      if (CheckoutValidation.checkAll(scope.checkout)) {
         scope.processCheckout(scope.checkout);
+      } else {
+        var ionPurchaseSpan = document.getElementsByTagName('ion-purchase')[0].children[0];
+        angular.element(ionPurchaseSpan).html('Please correct the following:').css({color: '#ED303C', opacity: 1});
       }
       
+    });
+
+    element.on('touchstart', function(){
+      element.css({opacity: 0.8});
+    });
+
+    element.on('touchend', function(){
+      element.css({opacity: 1});
     });
   };
 
@@ -103,20 +189,29 @@ app.directive('checkoutCard', function(){
 });
 
 // CARD NUM INPUT
-app.directive('cardNumInput', function(checkoutValidation){
+app.directive('cardNumInput', function($timeout, CheckoutValidation){
   var link = function(scope, element, attr) {
+    var input = element.children()[0].children[0];
+    var icon = element.children()[0].children[1];
     scope.onNumBlur = function(){
-      if (!checkoutValidation.validateCreditCardNumber(scope.checkout.cc)) {
-        scope.checkout.cc = 'Please enter a valid credit card #';
-        return;
-      }
-      checkoutValidation.cardType(scope.checkout.cc);
+      if (!scope.checkout.cc) {return;}
+      angular.element(icon).removeClass('ion-card');
+      angular.element(icon).addClass('ion-loading-d');
+      $timeout(function(){
+        if (!CheckoutValidation.validateCreditCardNumber(scope.checkout.cc)) {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-close-round').css({color: '#ED303C'});
+          return;
+        } else {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-checkmark-round').css({color: '#1fda9a'});
+        }
+      }, 300);
     };
 
     scope.onNumFocus = function(){
-      if (scope.checkout.cc === 'Please enter a valid credit card #') {
-        scope.checkout.cc = '';
-      }
+      angular.element(icon).removeClass('ion-checkmark-round ion-close-round');
+      angular.element(icon).addClass('ion-card').css({color: '#333'});
     };
   };
 
@@ -128,19 +223,27 @@ app.directive('cardNumInput', function(checkoutValidation){
 });
 
 // CARD EXPIRATION INPUT
-app.directive('cardExpInput', function(checkoutValidation){
+app.directive('cardExpInput', function($timeout, CheckoutValidation){
   var link = function(scope, element, attr) {
+    var input = element.children()[0].children[0];
+    var icon = element.children()[0].children[1];
     scope.onExpBlur = function(){
-      if (!scope.checkout.exp || !checkoutValidation.validateExpiry(scope.checkout.exp.slice(0,2), scope.checkout.exp.slice(3))) {
-        scope.checkout.exp = 'Please enter a valid expiration date';
-        return;
-      }
+      if (!scope.checkout.exp) {return;}
+      angular.element(icon).addClass('ion-loading-d');
+      $timeout(function(){
+        if (!scope.checkout.exp || !CheckoutValidation.validateExpiry(scope.checkout.exp.slice(0,2), scope.checkout.exp.slice(3))) {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-close-round').css({color: '#ED303C'});
+          return;
+        } else {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-checkmark-round').css({color: '#1fda9a'});
+        }
+      }, 300);
     };
 
     scope.onExpFocus = function(){
-      if (scope.checkout.exp === 'Please enter a valid expiration date') {
-        scope.checkout.exp = '';
-      }
+      angular.element(icon).removeClass('ion-checkmark-round ion-close-round').css({color: '#333'});
     };
   };
 
@@ -153,19 +256,27 @@ app.directive('cardExpInput', function(checkoutValidation){
 });
 
 //CARD CVC INPUT
-app.directive('cardCvcInput', function(checkoutValidation){
+app.directive('cardCvcInput', function($timeout, CheckoutValidation){
   var link = function(scope, element, attr) {
+    var input = element.children()[0].children[0];
+    var icon = element.children()[0].children[1];
     scope.onCvcBlur = function(){
-      if (!checkoutValidation.validateCVC(scope.checkout.cvc)) {
-        scope.checkout.cvc = 'Please enter a valid CVC';
-        return;
-      }
+      if (!scope.checkout.cvc) {return;}
+      angular.element(icon).addClass('ion-loading-d');
+      $timeout(function(){
+        if (!CheckoutValidation.validateCVC(scope.checkout.cvc)) {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-close-round').css({color: '#ED303C'});
+          return;
+        } else {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-checkmark-round').css({color: '#1fda9a'});
+        }
+      }, 300);
     };
 
     scope.onCvcFocus = function(){
-      if (scope.checkout.cvc === 'Please enter a valid CVC') {
-        scope.checkout.cvc = '';
-      }
+      angular.element(icon).removeClass('ion-checkmark-round ion-close-round').css({color: '#333'});
     };
 
   };
@@ -195,18 +306,6 @@ app.directive('checkoutAddress', function(){
 //ADDRESS LINE ONE INPUT
 app.directive('addressOneInput', function(){
   var link = function(scope, element, attr) {
-    scope.onCvcBlur = function(){
-      if (!checkoutValidation.validateCVC(scope.checkout.cvc)) {
-        scope.checkout.cvc = 'Please enter a valid CVC';
-        return;
-      }
-    };
-
-    scope.onCvcFocus = function(){
-      if (scope.checkout.cvc === 'Please enter a valid CVC') {
-        scope.checkout.cvc = '';
-      }
-    };
 
   };
 
@@ -221,11 +320,11 @@ app.directive('addressOneInput', function(){
 app.directive('addressTwoInput', function(){
   var link = function(scope, element, attr) {
 
-    scope.onAddrOneBlur = function(){
+    scope.onAddrTwoBlur = function(){
 
     };
 
-    scope.onAddrOneFocus = function(){
+    scope.onAddrTwoFocus = function(){
 
     };
 
@@ -279,14 +378,26 @@ app.directive('stateInput', function(){
 });
 
 //ZIP INPUT
-app.directive('zipInput', function(){
+app.directive('zipInput', function($timeout, CheckoutValidation){
   var link = function(scope, element, attr) {
+    var icon = element.children()[0].children[1];
     scope.onZipBlur = function(){
-
+      if (!scope.checkout.zipcode) {return;}
+      angular.element(icon).addClass('ion-loading-d');
+      $timeout(function(){
+        if (!CheckoutValidation.validateZipcode(scope.checkout.zipcode)) {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-close-round').css({color: '#ED303C'});
+          return;
+        } else {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-checkmark-round').css({color: '#1fda9a'});
+        }
+      }, 300);
     };
 
     scope.onZipFocus = function(){
-
+      angular.element(icon).removeClass('ion-checkmark-round ion-close-round').css({color: '#333'});
     };
 
   };
@@ -341,19 +452,26 @@ app.directive('firstNameInput', function(){
 });
 
 //EMAIL GROUP
-app.directive('checkoutEmail', function(checkoutValidation){
+app.directive('checkoutEmail', function($timeout, CheckoutValidation){
   var link = function(scope, element, attr) {
+    var icon = element.children()[1].children[1];
     scope.onEmailBlur = function(){
-      if (!checkoutValidation.validateEmail(scope.checkout.email)) {
-        scope.checkout.email = 'Please enter a valid email';
-        return;
-      }
+      if (!scope.checkout.email) {return;}
+      angular.element(icon).addClass('ion-loading-d');
+      $timeout(function(){
+        if (!CheckoutValidation.validateEmail(scope.checkout.email)) {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-close-round').css({color: '#ED303C'});
+          return;
+        } else {
+          angular.element(icon).removeClass('ion-loading-d');
+          angular.element(icon).addClass('ion-checkmark-round').css({color: '#1fda9a'});
+        }
+      }, 300);
     };
 
     scope.onEmailFocus = function(){
-      if (scope.checkout.email === 'Please enter a valid email') {
-        scope.checkout.email = '';
-      }
+      angular.element(icon).removeClass('ion-checkmark-round ion-close-round').css({color: '#333'});
     };
   };
 
@@ -384,4 +502,4 @@ app.directive('mouseDownUp', function(){
     restrict: 'AC',
     link: link
   };
-})
+});

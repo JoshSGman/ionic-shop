@@ -65,6 +65,20 @@ body {
   padding-bottom: 4px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+
+
+.image-slider-box {
+  height: 400px;
+  text-align: center;
+}
+
+.image-slide {
+  width: 300px;
+}
+
+.image-slider-content {
 
 }
 

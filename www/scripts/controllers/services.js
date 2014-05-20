@@ -1,44 +1,27 @@
 
+//PRODUCT SERVICE HOLDING ALL ITEMS
 app.service('Products',[ function(){
 
   this.products = [];
   this.checkout = {};
-  this.total;
-
-  // TO BE REMOVED
-  var images = ['images/polaroid.jpg','images/canon.jpg','images/nikon.jpg','images/leica.jpeg'];
-  var prices = [150, 800, 800, 2000];
-
-  for (var i = 0; i < 10; i++) {
-    var ind = Math.floor(Math.random() * 4);
-    
-    var prod         = {};
-    prod.id          = i+1;
-    prod.title       = 'Polaroid Camera';
-    prod.image       = images[ind];
-    prod.description = 'A retro camera';
-    prod.quantity    = ind+1;
-    prod.price       = prices[ind];
-    this.products.push(prod);
-  }
 
   this.removeProduct = function(product) {
     this.products.forEach(function(prod, i, collection){
       if (product.id === prod.id) {
         this.products.splice(i, 1);
-        updateTotal();
+        this.updateTotal();
       }
     }.bind(this));
   };
 
   this.addOneProduct = function(product) {
     product.quantity++;
-    updateTotal();
+    this.updateTotal();
   };
 
   this.removeOneProduct = function(product) {
     product.quantity--;
-    updateTotal();
+    this.updateTotal();
   };
 
   this.cartTotal = function() {
@@ -54,15 +37,16 @@ app.service('Products',[ function(){
     return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   };
 
-  var updateTotal = function(){
+  this.updateTotal = function(){
     this.total = this.cartTotal();
   }.bind(this);
 
-  updateTotal();
+  this.updateTotal();
 
 }]);
 
-app.service('checkoutValidation', function(){
+//CHECKOUT VALIDATION SERVICE
+app.service('CheckoutValidation', function(){
    var cardTypes = {
     visa: /^4[0-9]{6,}$/,
     masterCard : /^5[1-5][0-9]{5,}$/,
@@ -103,8 +87,13 @@ app.service('checkoutValidation', function(){
   };
 
   this.validateEmail = function(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+    var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailReg.test(email);
+  };
+
+  this.validateZipcode = function(zipcode) {
+    var zipReg = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+    return zipReg.test(zipcode);
   };
 
   this.checkAll = function(checkoutDetails) {
@@ -126,11 +115,16 @@ app.service('checkoutValidation', function(){
         return false;
       }
 
+      if (input === 'zipcode' && !this.validateZipcode(checkoutDetails[input])) {
+        return false;
+      }
     }
+    return true;
   }.bind(this);
 });
 
-app.service('stripeCheckout',['Products','checkoutValidation' ,'$http', function(Products, checkoutValidation, $http){
+//STRIPE INTEGRATION SERVICE
+app.service('stripeCheckout',['Products','CheckoutValidation' ,'$http', function(Products, CheckoutValidation, $http){
 
   this.processCheckout = function(checkoutDetails){
     var cc    = checkoutDetails.cc;
