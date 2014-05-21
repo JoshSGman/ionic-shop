@@ -9,6 +9,7 @@
     "gulp-minify-css": "^0.3.0",
     "gulp-rename": "^1.2.0",
     "express": "^4.2.0",
-    "stripe": "^2.5.2"
+    "stripe": "^2.5.2",
+    "gulp-uglify": "^0.3.0"
   }
 }
