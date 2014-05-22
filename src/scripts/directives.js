@@ -1,7 +1,7 @@
 (function(angular) {
   
   //IONIC CART DIRECTIVE
-  var app = angular.module('ionShop.directives', ['ionic', 'ionShop.services']);
+  var app = angular.module('ionicShop.directives', ['ionic', 'ionicShop.services']);
 
   app.directive('ionCart',['Products', function(Products){
     var link = function(scope, element, attr) {

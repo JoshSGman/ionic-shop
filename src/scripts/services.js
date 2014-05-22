@@ -1,7 +1,6 @@
 (function(angular) {
-
-
-  var app = angular.module('ionShop.services', ['ionic']);
+  //Service Module for ionic-shop
+  var app = angular.module('ionicShop.services', ['ionic']);
   //PRODUCT SERVICE HOLDING ALL ITEMS
   app.service('Products',[ function(){
 
@@ -50,32 +49,6 @@
 
   //CHECKOUT VALIDATION SERVICE
   app.service('CheckoutValidation', function(){
-     var cardTypes = {
-      visa: /^4[0-9]{6,}$/,
-      masterCard : /^5[1-5][0-9]{5,}$/,
-      amex: /^3[47][0-9]{5,}$/,
-      diners : /^3(?:0[0-5]|[68][0-9])[0-9]{4,}$/,
-      discover: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
-      jcb: /^(?:2131|1800|35[0-9]{3})[0-9]{3,}$/
-     };
-
-     var cardTypeImage = {
-      visa: '../../images/creditcards/visa.png',
-      masterCard: '../../images/creditcards/mastercard.png',
-      amex: '../../images/creditcards/amex.png',
-      diners: '../../images/creditcards/diners.png',
-      discover: '../../images/creditcards/discover.png',
-      jcb: '../../images/creditcards/jcb.png'
-     };
-
-     this.cardType = function(cc) {
-      cc = cc.split(' ').join('');
-      for (var cType in cardTypes) {
-        if (cardTypes[cType].test(cc)) {
-          console.log(cardTypeImage[cType]);
-        }
-      }
-     };
 
     this.validateCreditCardNumber = function(cc){
       return Stripe.card.validateCardNumber(cc);

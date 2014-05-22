@@ -1,6 +1,6 @@
 (function(angular) {
 
-
+  // Service Module For ionShop
   var app = angular.module('ionShop.services', ['ionic']);
   //PRODUCT SERVICE HOLDING ALL ITEMS
   app.service('Products',[ function(){
