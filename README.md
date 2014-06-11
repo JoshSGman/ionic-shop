@@ -42,7 +42,7 @@ The product Array should have objects with the following fields:
   description: 'product description',
   quantity: integer (number of products added),
   price: integer (per unit price of the product),
-  image: 'pathToImageUrl.jpg' (A string containing the path to your image url),
+  images: 'pathToImageUrl.jpg' (A string containing the path to your image url),
   id: an optional field to give each product a unique id 
 }
 ```
