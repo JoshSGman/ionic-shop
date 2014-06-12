@@ -1,9 +1,8 @@
 (function(angular) {
-
-  // Service Module For ionShop
-  var app = angular.module('ionShop.services', ['ionic']);
+  //Service Module for ionic-shop
+  var app = angular.module('ionicShop.services', ['ionic']);
   //PRODUCT SERVICE HOLDING ALL ITEMS
-  app.service('Products',[ function(){
+  app.service('Products',['$http', function($http){
 
     this.products = [];
     this.checkout = {};
@@ -46,36 +45,18 @@
 
     this.updateTotal();
 
+    this.getProducts = function(callback){
+      $http.get('/admin/panel/products')
+      .success(function(products){
+        this.products = products;
+        if (callback) {callback();}
+      }.bind(this));
+    };
+
   }]);
 
   //CHECKOUT VALIDATION SERVICE
   app.service('CheckoutValidation', function(){
-     var cardTypes = {
-      visa: /^4[0-9]{6,}$/,
-      masterCard : /^5[1-5][0-9]{5,}$/,
-      amex: /^3[47][0-9]{5,}$/,
-      diners : /^3(?:0[0-5]|[68][0-9])[0-9]{4,}$/,
-      discover: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
-      jcb: /^(?:2131|1800|35[0-9]{3})[0-9]{3,}$/
-     };
-
-     var cardTypeImage = {
-      visa: '../../images/creditcards/visa.png',
-      masterCard: '../../images/creditcards/mastercard.png',
-      amex: '../../images/creditcards/amex.png',
-      diners: '../../images/creditcards/diners.png',
-      discover: '../../images/creditcards/discover.png',
-      jcb: '../../images/creditcards/jcb.png'
-     };
-
-     this.cardType = function(cc) {
-      cc = cc.split(' ').join('');
-      for (var cType in cardTypes) {
-        if (cardTypes[cType].test(cc)) {
-          console.log(cardTypeImage[cType]);
-        }
-      }
-     };
 
     this.validateCreditCardNumber = function(cc){
       return Stripe.card.validateCardNumber(cc);
@@ -134,7 +115,7 @@
       Stripe.setPublishableKey(key);
     };
 
-    this.processCheckout = function(checkoutDetails){
+    this.processCheckout = function(checkoutDetails, callback){
       var cc    = checkoutDetails.cc;
       var month = checkoutDetails.exp.slice(0,2);
       var year  = checkoutDetails.exp.slice(3);
@@ -145,17 +126,15 @@
         cvc       : cvc,
         exp_month : month,
         exp_year  : year
-      }, stripeResponseHandler);
-
+      }, callback);
     };
 
-    var stripeResponseHandler = function(status, response) {
-        if (response.error) {
-            console.log(response.error);
-        } else {
-            console.log(response);
-            pay(response);
-        }
+    this.stripeCallback = function(status, response){
+      console.log(status, response);
+      return {
+        'status': status,
+        'response': response
+      };
     };
 
     var pay = function(response) {
@@ -170,13 +149,11 @@
 (function(angular) {
   
   //IONIC CART DIRECTIVE
-  var app = angular.module('ionShop.directives', ['ionic', 'ionShop.services']);
+  var app = angular.module('ionicShop.directives', ['ionic', 'ionicShop.services']);
 
   app.directive('ionCart',['Products', function(Products){
     var link = function(scope, element, attr) {
-      scope.$watch(function(){
-        return Products.products;
-      }, function(){
+      scope.$watch('products.length', function(newVal, oldVal){
         Products.updateTotal();
         scope.emptyProducts = Products.products.length ? false : true; 
       });
@@ -199,7 +176,7 @@
       },
       link: link,
       scope: {
-        products: '=products'
+        products: '='
       }
     };
   }]);
@@ -299,17 +276,17 @@
     var link = function(scope, element, attr) {
       scope.checkout = Products.checkout;
       scope.processCheckout = stripeCheckout.processCheckout;
+      scope.stripeCallback = stripeCheckout.stripeCallback;
 
       element.addClass('bar bar-footer bar-dark');
 
       element.on('click', function(){
         if (CheckoutValidation.checkAll(scope.checkout)) {
-          scope.processCheckout(scope.checkout);
+          scope.processCheckout(scope.checkout, scope.stripeCallback);
         } else {
           var ionPurchaseSpan = document.getElementsByTagName('ion-purchase')[0].children[0];
           angular.element(ionPurchaseSpan).html('Please correct the following:').css({color: '#ED303C', opacity: 1});
         }
-        
       });
 
       element.on('touchstart', function(){
@@ -665,6 +642,6 @@
 
 (function(angular) {
 
-  var app = angular.module('ionicShop', ['ionic', 'ionShop.services', 'ionShop.directives']);
+  var app = angular.module('ionicShop', ['ionic', 'ionicShop.services', 'ionicShop.directives']);
   
 })(angular);

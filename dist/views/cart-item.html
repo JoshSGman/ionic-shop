@@ -1,7 +1,7 @@
 <div ng-if='!emptyProducts'>
   <div class='card product-card' ng-repeat='product in products track by $index'>
     <div class='item item-thumbnail-right product-item'>
-      <img ng-src='{{product.image[0]}}' class='product-image' ion-product-image='product'>
+      <img ng-src='{{product.images[0]}}' class='product-image' ion-product-image='product'>
       <h3 class='product-title'>{{product.title}}</h3>
       <p class='product-description'>{{product.description}}</p>
 

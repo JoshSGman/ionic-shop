@@ -2,7 +2,7 @@
   //Service Module for ionic-shop
   var app = angular.module('ionicShop.services', ['ionic']);
   //PRODUCT SERVICE HOLDING ALL ITEMS
-  app.service('Products',[ function(){
+  app.service('Products',['$http', function($http){
 
     this.products = [];
     this.checkout = {};
@@ -44,6 +44,14 @@
     }.bind(this);
 
     this.updateTotal();
+
+    this.getProducts = function(callback){
+      $http.get('/admin/panel/products')
+      .success(function(products){
+        this.products = products;
+        if (callback) {callback();}
+      }.bind(this));
+    };
 
   }]);
 
@@ -107,7 +115,7 @@
       Stripe.setPublishableKey(key);
     };
 
-    this.processCheckout = function(checkoutDetails){
+    this.processCheckout = function(checkoutDetails, callback){
       var cc    = checkoutDetails.cc;
       var month = checkoutDetails.exp.slice(0,2);
       var year  = checkoutDetails.exp.slice(3);
@@ -118,17 +126,15 @@
         cvc       : cvc,
         exp_month : month,
         exp_year  : year
-      }, stripeResponseHandler);
-
+      }, callback);
     };
 
-    var stripeResponseHandler = function(status, response) {
-        if (response.error) {
-            console.log(response.error);
-        } else {
-            console.log(response);
-            pay(response);
-        }
+    this.stripeCallback = function(status, response){
+      console.log(status, response);
+      return {
+        'status': status,
+        'response': response
+      };
     };
 
     var pay = function(response) {

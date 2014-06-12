@@ -5,9 +5,7 @@
 
   app.directive('ionCart',['Products', function(Products){
     var link = function(scope, element, attr) {
-      scope.$watch(function(){
-        return Products.products;
-      }, function(){
+      scope.$watch('products.length', function(newVal, oldVal){
         Products.updateTotal();
         scope.emptyProducts = Products.products.length ? false : true; 
       });
@@ -30,7 +28,7 @@
       },
       link: link,
       scope: {
-        products: '=products'
+        products: '='
       }
     };
   }]);
@@ -130,17 +128,17 @@
     var link = function(scope, element, attr) {
       scope.checkout = Products.checkout;
       scope.processCheckout = stripeCheckout.processCheckout;
+      scope.stripeCallback = stripeCheckout.stripeCallback;
 
       element.addClass('bar bar-footer bar-dark');
 
       element.on('click', function(){
         if (CheckoutValidation.checkAll(scope.checkout)) {
-          scope.processCheckout(scope.checkout);
+          scope.processCheckout(scope.checkout, scope.stripeCallback);
         } else {
           var ionPurchaseSpan = document.getElementsByTagName('ion-purchase')[0].children[0];
           angular.element(ionPurchaseSpan).html('Please correct the following:').css({color: '#ED303C', opacity: 1});
         }
-        
       });
 
       element.on('touchstart', function(){
