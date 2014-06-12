@@ -33,7 +33,11 @@ The ionic-shop use:
 
 The ion-cart is a shopping cart directive that should be placed within an ion-content element. In order to use the ion-cart, you must attach a products attribute to the element that is set equal to an array of product objects like so:
 
-```<ion-cart products='productArray'></ion-cart>```
+```
+<ion-content>
+ <ion-cart products='productArray'></ion-cart>
+</ion-content>
+```
 
 The product Array should have objects with the following fields:
 ```
