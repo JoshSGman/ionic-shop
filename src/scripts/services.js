@@ -115,6 +115,10 @@
       Stripe.setPublishableKey(key);
     };
 
+    this.setStripeTokenCallback = function(){
+      
+    };
+
     this.processCheckout = function(checkoutDetails, callback){
       var cc    = checkoutDetails.cc;
       var month = checkoutDetails.exp.slice(0,2);
@@ -130,11 +134,8 @@
     };
 
     this.stripeCallback = function(status, response){
-      return {
-        'status': status,
-        'response': response
-      };
-    };
+      this.setStripeTokenCallback(status, response);
+    }.bind(this);
 
     var pay = function(response) {
       var token = response.id;
