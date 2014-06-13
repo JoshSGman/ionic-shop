@@ -82,7 +82,7 @@ The ion-checkout directive is a checkout form content with field validations. Th
 
 The ion-checkout directive comes with a few options:
 
-## has-email
+#### has-email
 
 The has-e-mail attribute/directive attaches an e-mail field to the ion-checkout. Email field comes with validation. 
 
@@ -90,7 +90,7 @@ The has-e-mail attribute/directive attaches an e-mail field to the ion-checkout.
 <ion-checkout has-email></ion-checkout>
 ```
 
-## has-address
+#### has-address
 
 The has-address attribute/directive attaches an address field to the ion-checkout. Address fields come with zipcode validation
 
@@ -98,7 +98,7 @@ The has-address attribute/directive attaches an address field to the ion-checkou
 <ion-checkout has-address></ion-checkout>
 ```
 
-## has-name
+#### has-name
 
 The has-name attribute/directive attaches a first and last name field to the ion-checkout.
 
@@ -123,9 +123,9 @@ StripeService.setStripeCallback = function(status, response){
 
 For the time being, all directives in the ionic shop library can be styled using basic css on the following classes and their elements. 
 
-## Styles for the ionic-cart items
+### Styles for the ionic-cart items
 
-### Cart Item
+#### Cart Item
 
 .product-card affects the outer cart item div tag
 
@@ -145,7 +145,7 @@ For the time being, all directives in the ionic shop library can be styled using
 
 .icon-minus-round affects the - sign icon
 
-### Cart Image Modal
+#### Cart Image Modal
 
 .image-slider-modal affects the image slider modal div
 
@@ -157,7 +157,7 @@ For the time being, all directives in the ionic shop library can be styled using
 
 .image-slide affects the actual image
 
-## Checkout Form
+#### Checkout Form
 
 .checkout-form-description affects the description span at the top of the form
 
@@ -165,7 +165,7 @@ For the time being, all directives in the ionic shop library can be styled using
 
 .checkout-total affects the total span at the bottom of the checkout form
 
-## Inputs
+#### Inputs
 
 All the following classes affect their respective input fields
 
