@@ -315,7 +315,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/card-form.html'
     };
@@ -350,7 +350,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/card-num-input.html'
     };
@@ -382,7 +382,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/card-exp-input.html'
     };
@@ -416,7 +416,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/card-cvc-input.html'
     };
@@ -430,7 +430,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/address.html'
     };
@@ -444,7 +444,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/address-line-one.html'
     };
@@ -465,7 +465,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/address-line-two.html'
     };
@@ -485,7 +485,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/city-input.html'
     };
@@ -505,7 +505,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/state-input.html'
     };
@@ -537,7 +537,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/zipcode-input.html'
     };
@@ -551,7 +551,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/name-input.html'
     };
@@ -566,7 +566,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/first-name-input.html'
     };
@@ -579,7 +579,7 @@
 
     };
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/last-name-input.html'
     };
@@ -610,7 +610,7 @@
     };
 
     return {
-      restrict: 'AEC',
+      restrict: 'AE',
       link: link,
       templateUrl: 'partials/email-input.html'
     };
