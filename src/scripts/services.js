@@ -130,7 +130,6 @@
     };
 
     this.stripeCallback = function(status, response){
-      console.log(status, response);
       return {
         'status': status,
         'response': response
