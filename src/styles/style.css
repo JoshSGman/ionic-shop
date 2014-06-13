@@ -109,20 +109,20 @@ body {
   color: #404040;
 }
 
-/* PURCHASE */
+/* Checkout */
 
-.purchase-form-description {
+.checkout-form-description {
   display: block;
   margin-top: 20px;
   margin-left: 10px;
   opacity: 0.45;
 }
 
-.purchase-form {
+.checkout-form {
   margin-top: 10px;
 }
 
-.purchase-total {
+.checkout-total {
   margin-top: 10px;
   text-align: center;
 }

@@ -64,12 +64,14 @@
   }]);
 
   // IONIC CHECKOUT DIRECTIVE
-  app.directive('ionCheckout',['$state', '$templateCache', function($state, $templateCache){
+  app.directive('ionCartFooter',['$state', '$templateCache', function($state, $templateCache){
     var link = function(scope, element, attr) {
 
       element.addClass('bar bar-footer bar-dark');
       element.on('click', function(e){
-        $state.go(scope.path);
+        if (scope.path) {
+          $state.go(scope.path);
+        }
       });
 
       element.on('touchstart', function(){
@@ -83,7 +85,7 @@
 
     return {
       restrict: 'AEC',
-      templateUrl: 'checkout-footer.html',
+      templateUrl: 'cart-footer.html',
       scope: {
         path : '=path'
       },
@@ -92,7 +94,7 @@
   }]);
 
   // IONIC PURCHASE DIRECTIVE
-  app.directive('ionPurchase',['Products','$templateCache', function(Products, $templateCache){
+  app.directive('ionCheckout',['Products','$templateCache', function(Products, $templateCache){
     var link = function(scope, element, attr) {
       scope.$watch(function(){
         return Products.total;
@@ -116,13 +118,13 @@
 
     return {
       restrict: 'AEC',
-      templateUrl: 'purchase.html',
+      templateUrl: 'checkout.html',
       link: link
     };
   }]);
 
   //IONIC PURCHASE FOOTER DIRECTIVE
-  app.directive('ionPurchaseFooter',['$compile', 'Products', 'stripeCheckout', 'CheckoutValidation','$templateCache', function($compile, Products, stripeCheckout, CheckoutValidation, $templateCache){
+  app.directive('ionCheckoutFooter',['$compile', 'Products', 'stripeCheckout', 'CheckoutValidation','$templateCache', function($compile, Products, stripeCheckout, CheckoutValidation, $templateCache){
     var link = function(scope, element, attr) {
       scope.checkout = Products.checkout;
       scope.processCheckout = stripeCheckout.processCheckout;
@@ -150,7 +152,7 @@
 
     return {
       restrict: 'AEC',
-      templateUrl: 'purchase-footer.html',
+      templateUrl: 'checkout-footer.html',
       link: link
     };
   }]);
