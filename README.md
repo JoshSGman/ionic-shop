@@ -80,31 +80,31 @@ The ion-checkout directive is a checkout form content with field validations. Th
 </ion-content>
 ```
 
-    The ion-checkout directive comes with a few options:
+The ion-checkout directive comes with a few options:
 
-    ## has-email
+#### has-email
 
-    The has-e-mail attribute/directive attaches an e-mail field to the ion-checkout. Email field comes with validation. 
+The has-e-mail attribute/directive attaches an e-mail field to the ion-checkout. Email field comes with validation. 
 
-    ```
-    <ion-checkout has-email></ion-checkout>
-    ```
+```
+<ion-checkout has-email></ion-checkout>
+```
 
-    ## has-address
+#### has-address
 
-    The has-address attribute/directive attaches an address field to the ion-checkout. Address fields come with zipcode validation
+The has-address attribute/directive attaches an address field to the ion-checkout. Address fields come with zipcode validation
 
-    ```
-    <ion-checkout has-address></ion-checkout>
-    ```
+```
+<ion-checkout has-address></ion-checkout>
+```
 
-    ## has-name
+#### has-name
 
-    The has-name attribute/directive attaches a first and last name field to the ion-checkout.
+The has-name attribute/directive attaches a first and last name field to the ion-checkout.
 
-    ```
-    <ion-checkout has-name></ion-checkout>
-    ```
+```
+<ion-checkout has-name></ion-checkout>
+```
 
 ## checkout-footer 
 
@@ -123,63 +123,63 @@ StripeService.setStripeCallback = function(status, response){
 
 For the time being, all directives in the ionic shop library can be styled using basic css on the following classes and their elements. 
 
-  ## Styles for the ionic-cart items
+### Styles for the ionic-cart items
 
-  ### Cart Item
+#### Cart Item
 
-  .product-card affects the outer cart item div tag
+.product-card affects the outer cart item div tag
 
-  .product-item affects the inner cart item div tag
+.product-item affects the inner cart item div tag
 
-  .product-image affects the product image thumbnail img tag
+.product-image affects the product image thumbnail img tag
 
-  .product-title affects the product title h3 tag
+.product-title affects the product title h3 tag
 
-  .product-description affects the product description p tag
+.product-description affects the product description p tag
 
-  .product-quantity affects the product quantity span
+.product-quantity affects the product quantity span
 
-  .product-price affects the product price span
+.product-price affects the product price span
 
-  .icon-plus-round affects the + sign icon
+.icon-plus-round affects the + sign icon
 
-  .icon-minus-round affects the - sign icon
+.icon-minus-round affects the - sign icon
 
-  ### Cart Image Modal
+#### Cart Image Modal
 
-  .image-slider-modal affects the image slider modal div
+.image-slider-modal affects the image slider modal div
 
-  .image-slider-box affects the image slider box div
+.image-slider-box affects the image slider box div
 
-  .image-slide-div affects the div encompassing the product description and img
+.image-slide-div affects the div encompassing the product description and img
 
-  .image-slide-description affects the image description h3 tag
+.image-slide-description affects the image description h3 tag
 
-  .image-slide affects the actual image
+.image-slide affects the actual image
 
-  ## Checkout Form
+#### Checkout Form
 
-  .checkout-form-description affects the description span at the top of the form
+.checkout-form-description affects the description span at the top of the form
 
-  .checkout-form affects the actual checkout form div
+.checkout-form affects the actual checkout form div
 
-  .checkout-total affects the total span at the bottom of the checkout form
+.checkout-total affects the total span at the bottom of the checkout form
 
-  ## Inputs
+#### Inputs
 
-  All the following classes affect their respective input fields
+All the following classes affect their respective input fields
 
-  .address-line-one
-  .address-line-two
-  .card-cvc-input
-  .card-exp-input
-  .card-num-input
-  .city-input
-  .email-input
-  .first-name-input
-  .last-name-input
-  .state-input
-  .zipcode-input
+.address-line-one
+.address-line-two
+.card-cvc-input
+.card-exp-input
+.card-num-input
+.city-input
+.email-input
+.first-name-input
+.last-name-input
+.state-input
+.zipcode-input
 
 
 ## To Do (Not ordered)
