@@ -187,7 +187,7 @@
       };
 
       element.on('click', function(){
-        $ionicModal.fromTemplateUrl('cart-image-modal.html', {
+        $ionicModal.fromTemplateUrl('partials/cart-image-modal.html', {
           animation: 'slide-left-right',
           scope: scope
         })
