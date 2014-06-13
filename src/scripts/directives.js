@@ -167,7 +167,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'card-form.html'
+      templateUrl: 'partials/card-form.html'
     };
 
   }]);
@@ -202,7 +202,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'card-num-input.html'
+      templateUrl: 'partials/card-num-input.html'
     };
   }]);
 
@@ -234,7 +234,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'card-exp-input.html'
+      templateUrl: 'partials/card-exp-input.html'
     };
 
   }]);
@@ -268,7 +268,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'card-cvc-input.html'
+      templateUrl: 'partials/card-cvc-input.html'
     };
   }]);
 
@@ -282,7 +282,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'address.html'
+      templateUrl: 'partials/address.html'
     };
 
   }]);
@@ -296,7 +296,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'address-line-one.html'
+      templateUrl: 'partials/address-line-one.html'
     };
   }]);
 
@@ -317,7 +317,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'address-line-two.html'
+      templateUrl: 'partials/address-line-two.html'
     };
   }]);
 
@@ -337,7 +337,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'city-input.html'
+      templateUrl: 'partials/city-input.html'
     };
   }]);
 
@@ -357,7 +357,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'state-input.html'
+      templateUrl: 'partials/state-input.html'
     };
   }]);
 
@@ -389,7 +389,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'zipcode-input.html'
+      templateUrl: 'partials/zipcode-input.html'
     };
   }]);
 
@@ -403,7 +403,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'name-input.html'
+      templateUrl: 'partials/name-input.html'
     };
 
   }]);
@@ -418,7 +418,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'first-name-input.html'
+      templateUrl: 'partials/first-name-input.html'
     };
 
   }]);
@@ -431,7 +431,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'last-name-input.html'
+      templateUrl: 'partials/last-name-input.html'
     };
   }]);
 
@@ -462,7 +462,7 @@
     return {
       restrict: 'AEC',
       link: link,
-      templateUrl: 'email-input.html'
+      templateUrl: 'partials/email-input.html'
     };
   }]);
 
