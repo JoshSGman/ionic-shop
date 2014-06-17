@@ -177,10 +177,10 @@
     var link = function(scope, element, attr) {
       scope.$watch('products.length', function(newVal, oldVal){
         Products.updateTotal();
-        scope.emptyProducts = Products.cartProducts.length ? false : true; 
+        scope.emptyProducts = newVal > 0 ? false : true; 
       });
 
-      scope.emptyProducts = Products.cartProducts.length ? false : true;
+      scope.emptyProducts = scope.products.length ? false : true;
 
       scope.addProduct = function(product) {
         Products.addOneProduct(product);
