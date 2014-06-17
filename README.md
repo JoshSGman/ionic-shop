@@ -22,6 +22,10 @@ An alternative is to clone this repo and add it to your dependencies directory
 Include the ```ion-cart.js``` or the minified version ```ion-cart.min.js``` in your dependencies scripts:
 i.e : ```<script src="ion-cart.js"></script>```
 
+Include the ```ion-shop-styles.css```  in your dependencies:
+
+i.e : ```<link href="bower_components/ionic-shop/dist/styles/ion-shop-style.css" rel="stylesheet">```
+
 Additionally, include the Stripe Scripe, it will be used for some field validations:
  ```<script type="text/javascript" src="https://js.stripe.com/v2/"></script>```
 
