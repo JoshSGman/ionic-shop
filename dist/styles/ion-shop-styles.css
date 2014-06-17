@@ -91,10 +91,10 @@ body {
 }
 
 .gallery-product-added {
-  -webkit-animation: fadeOut 1s;
-     -moz-animation: fadeOut 1s;
-       -o-animation: fadeOut 1s;
-          animation: fadeOut 1s;
+  -webkit-animation: fadeOut 0.5s;
+     -moz-animation: fadeOut 0.5s;
+       -o-animation: fadeOut 0.5s;
+          animation: fadeOut 0.5s;
 }
 
 /* Cart Content */

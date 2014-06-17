@@ -125,6 +125,7 @@
 
   app.directive('ionGallery', ['Products', '$templateCache', function(Products, $templateCache){
     var link = function(scope, element, attr) {
+
       scope.addToCart = function(product){
         Products.addToCart(product);
       };
@@ -519,7 +520,7 @@
         $timeout(function(){
           scope.addText = 'Add To Cart';
           element.removeClass('gallery-product-added');
-        }, 1000);
+        }, 500);
       });
     };
 

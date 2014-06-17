@@ -6,6 +6,7 @@
 
     this.galleryProducts = [];
     this.cartProducts = [];
+    this.checkout = {};
 
     this.addToCart = function(product){
       var productInCart = false;
