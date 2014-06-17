@@ -1,0 +1,11 @@
+
+<span class='checkout-form-description'>Please enter your credit card details:</span>
+
+<div class='list checkout-form'>
+  <checkout-name ng-if='hasNameDir'></checkout-name>
+  <checkout-card></checkout-card>
+  <checkout-address ng-if='hasAddressDir'></checkout-address>
+  <checkout-email ng-if='hasEmailDir'></checkout-email>
+</div>
+
+<h2 class='checkout-total'>Total: ${{total}}</h2>

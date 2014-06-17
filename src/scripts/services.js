@@ -4,32 +4,53 @@
   //PRODUCT SERVICE HOLDING ALL ITEMS
   app.service('Products',['$http', function($http){
 
-    this.products = [];
-    this.checkout = {};
+    this.galleryProducts = [];
+    this.cartProducts = [];
+
+    this.addToCart = function(product){
+      var productInCart = false;
+      this.cartProducts.forEach(function(prod, index, prods){
+        if (prod._id === product._id) {
+          productInCart = prod;
+          return;
+        }
+      });
+
+      if (productInCart) {
+        this.addOneProduct(productInCart);
+      } else {
+        product.purchaseQuantity = 0;
+        this.addOneProduct(product);
+        this.cartProducts.push(product);
+      }
+    };
 
     this.removeProduct = function(product) {
-      this.products.forEach(function(prod, i, collection){
-        if (product.id === prod.id) {
-          this.products.splice(i, 1);
+      this.cartProducts.forEach(function(prod, i, prods){
+        if (product._id === prod._id) {
+          this.cartProducts.splice(i, 1);
           this.updateTotal();
         }
       }.bind(this));
     };
 
     this.addOneProduct = function(product) {
-      product.quantity++;
+      --product.quantity;
+      ++product.purchaseQuantity;
+
       this.updateTotal();
     };
 
     this.removeOneProduct = function(product) {
-      product.quantity--;
+      ++product.quantity;
+      --product.purchaseQuantity;
       this.updateTotal();
     };
 
     this.cartTotal = function() {
       var total = 0;
-      this.products.forEach(function(product, index, products){
-        total += product.price * product.quantity;
+      this.cartProducts.forEach(function(prod, index, prods){
+        total += prod.price * prod.purchaseQuantity;
       });
 
       return formatTotal(total);
@@ -48,7 +69,7 @@
     this.getProducts = function(callback){
       $http.get('/admin/panel/products')
       .success(function(products){
-        this.products = products;
+        this.galleryProducts = products;
         if (callback) {callback();}
       }.bind(this));
     };

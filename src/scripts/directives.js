@@ -7,17 +7,17 @@
     var link = function(scope, element, attr) {
       scope.$watch('products.length', function(newVal, oldVal){
         Products.updateTotal();
-        scope.emptyProducts = Products.products.length ? false : true; 
+        scope.emptyProducts = Products.cartProducts.length ? false : true; 
       });
 
-      scope.emptyProducts = Products.products.length ? false : true;
+      scope.emptyProducts = Products.cartProducts.length ? false : true;
 
       scope.addProduct = function(product) {
         Products.addOneProduct(product);
       };
 
       scope.removeProduct = function(product){
-          product.quantity <= 1 ? Products.removeProduct(product) : Products.removeOneProduct(product);
+          product.purchaseQuantity <= 1 ? Products.removeProduct(product) : Products.removeOneProduct(product);
       };
     };
 
@@ -121,6 +121,24 @@
       templateUrl: 'checkout.html',
       link: link
     };
+  }]);
+
+  app.directive('ionGallery', ['Products', '$templateCache', function(Products, $templateCache){
+    var link = function(scope, element, attr) {
+      scope.addToCart = function(product){
+        Products.addToCart(product);
+      };
+    };
+
+    return {
+      restrict: 'AEC',
+      templateUrl: 'gallery-item.html',
+      link: link,
+      scope: {
+        products: '='
+      }
+    };
+
   }]);
 
   //IONIC PURCHASE FOOTER DIRECTIVE
@@ -489,5 +507,27 @@
       link: link
     };
   });
+
+  app.directive('cartAdd', ['$timeout', function($timeout){
+    var link = function(scope, element, attr){
+
+      scope.addText = 'Add To Cart';
+
+      element.on('click', function(){
+        scope.addText = 'Added';
+        element.addClass('gallery-product-added');
+        $timeout(function(){
+          scope.addText = 'Add To Cart';
+          element.removeClass('gallery-product-added');
+        }, 1000);
+      });
+    };
+
+    return {
+      restrict: 'AC',
+      link: link,
+      scope: true
+    };
+  }]);
 
 })(angular);

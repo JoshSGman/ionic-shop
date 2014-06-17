@@ -1,0 +1,14 @@
+<div class='ion-gallery-content'>
+  <div class='card gallery-card' ng-repeat='product in products track by $index'>
+    <div class='item gallery-item'>
+      <div class='gallery-image-div'>
+        <img ng-src='{{product.images[0]}}' class='gallery-product-image'>
+      </div>
+      <h3 class='gallery-product-title'>{{product.title}}</h3>
+      <h3 class='gallery-product-price'>${{product.price}}</h3>
+      <div class='gallery-product-add' ng-click='addToCart(product)'>
+        <h3 class='gallery-product-add-title' cart-add>{{addText}}</h3>
+      </div>
+    </div>
+  </div>
+</div>
