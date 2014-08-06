@@ -62,7 +62,7 @@ Additionally, the ion-cart comes with an image-slider modal that pops up when a 
 
 ## ion-cart-footer
 
-The ion-cart-footer directive should be placed after the ion-content in your application. It replaces the noraml ion-footer element. The ion-cart-footer takes a path attribute/isolate scope that is set equal to a state specified in your ui-router like so.
+The ion-cart-footer directive should be placed after the ion-content in your application. It replaces the normal ion-footer element. The ion-cart-footer takes a path attribute/isolate scope that is set equal to a state specified in your ui-router like so.
 
 ```
 <ion-header></ion-header>
