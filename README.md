@@ -26,7 +26,7 @@ Include the ```ion-shop-styles.css```  in your dependencies:
 
 i.e : ```<link href="bower_components/ionic-shop/dist/styles/ion-shop-style.css" rel="stylesheet">```
 
-Additionally, include the Stripe Scripe, it will be used for some field validations:
+Additionally, include the Stripe script, it will be used for some field validations:
  ```<script type="text/javascript" src="https://js.stripe.com/v2/"></script>```
 
 Next include the module in your angular app:
