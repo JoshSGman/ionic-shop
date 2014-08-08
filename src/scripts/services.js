@@ -11,7 +11,7 @@
     this.addToCart = function(product){
       var productInCart = false;
       this.cartProducts.forEach(function(prod, index, prods){
-        if (prod._id === product._id) {
+        if (prod.id === product.id) {
           productInCart = prod;
           return;
         }
@@ -28,7 +28,7 @@
 
     this.removeProduct = function(product) {
       this.cartProducts.forEach(function(prod, i, prods){
-        if (product._id === prod._id) {
+        if (product.id === prod.id) {
           this.cartProducts.splice(i, 1);
           this.updateTotal();
         }

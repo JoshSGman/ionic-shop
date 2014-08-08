@@ -11,7 +11,7 @@
     this.addToCart = function(product){
       var productInCart = false;
       this.cartProducts.forEach(function(prod, index, prods){
-        if (prod._id === product._id) {
+        if (prod.id === product.id) {
           productInCart = prod;
           return;
         }
@@ -28,7 +28,7 @@
 
     this.removeProduct = function(product) {
       this.cartProducts.forEach(function(prod, i, prods){
-        if (product._id === prod._id) {
+        if (product.id === prod.id) {
           this.cartProducts.splice(i, 1);
           this.updateTotal();
         }
@@ -325,8 +325,8 @@
         if (CheckoutValidation.checkAll(scope.checkout)) {
           scope.processCheckout(scope.checkout, scope.stripeCallback);
         } else {
-          var ionPurchaseSpan = document.getElementsByTagName('ion-purchase')[0].children[0];
-          angular.element(ionPurchaseSpan).html('Please correct the following:').css({color: '#ED303C', opacity: 1});
+          var ionPurchaseSpan = document.getElementsByTagName('ion-checkout')[0].children[0];
+          angular.element(ionPurchaseSpan).html('You have invalid fields:').css({color: '#ED303C', opacity: 1});
         }
       });
 

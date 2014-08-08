@@ -155,8 +155,8 @@
         if (CheckoutValidation.checkAll(scope.checkout)) {
           scope.processCheckout(scope.checkout, scope.stripeCallback);
         } else {
-          var ionPurchaseSpan = document.getElementsByTagName('ion-purchase')[0].children[0];
-          angular.element(ionPurchaseSpan).html('Please correct the following:').css({color: '#ED303C', opacity: 1});
+          var ionPurchaseSpan = document.getElementsByTagName('ion-checkout')[0].children[0];
+          angular.element(ionPurchaseSpan).html('You have invalid fields:').css({color: '#ED303C', opacity: 1});
         }
       });
 
