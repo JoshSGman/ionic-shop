@@ -24,7 +24,7 @@ i.e : ```<script src="ion-cart.js"></script>```
 
 Include the ```ion-shop-styles.css```  in your dependencies:
 
-i.e : ```<link href="bower_components/ionic-shop/dist/styles/ion-shop-style.css" rel="stylesheet">```
+i.e : ```<link href="bower_components/ionic-shop/dist/styles/ion-shop-styles.css" rel="stylesheet">```
 
 Additionally, include the Stripe script, it will be used for some field validations:
  ```<script type="text/javascript" src="https://js.stripe.com/v2/"></script>```
@@ -51,7 +51,7 @@ The product Array should have objects with the following fields:
 {
   title: 'product name',
   description: 'product description',
-  quantity: integer (number of products added),
+  productQuantity: integer (number of products added),
   price: integer (per unit price of the product),
   images: (An array of strings containing the path to your image url),
   id: an optional field to give each product a unique id 
