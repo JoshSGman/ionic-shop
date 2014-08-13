@@ -1,0 +1,23 @@
+<div ng-if='!emptyProducts'>
+  <div class='card product-card' ng-repeat='product in products track by $index'>
+    <div class='item item-thumbnail-right product-item'>
+      <img ng-src='{{product.images[0]}}' class='product-image' ion-product-image='product'>
+      <h3 class='product-title'>{{product.title}}</h3>
+      <p class='product-description'>{{product.description}}</p>
+
+      <i class='icon ion-plus-round icon-plus-round' mouse-down-up ng-click='addProduct(product)'></i>
+         <span class='product-quantity'>{{product.quantity}}</span>
+      <i class='icon ion-minus-round icon-minus-round' mouse-down-up ng-click='removeProduct(product)'></i>
+
+      <span class='product-price'>${{product.price}}</span>
+    </div>
+  </div>
+  <div>
+    <br><br><br><br>
+  </div>
+</div>
+
+<div class='empty-cart-div' ng-if='emptyProducts'>
+  <h3 class='empty-cart-header'>Your bag is empty!</h3>
+  <i class='icon ion-bag empty-cart-icon'></i>
+</div>

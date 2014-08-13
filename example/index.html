@@ -1,0 +1,39 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <!-- <link href="styles/style.css" rel="stylesheet"> -->
+    <link href="lib/ionic-shop/dist/styles/ion-shop-styles.css" rel="stylesheet">
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- <script src="cordova.js"></script> -->
+
+    <!-- your app's js -->
+    <script src="scripts/app.js"></script>
+    <script src="lib/ionic-shop/dist/ion-cart.js"></script>
+    
+    <script src="scripts/controllers/cart.js"></script>
+    <script src="scripts/controllers/checkout.js"></script>
+    <script src="scripts/controllers/gallery.js"></script>
+
+  </head>
+  <body ng-app="ionicShopCtrl">
+    
+    <ion-pane>
+        <ion-nav-view></ion-nav-view>
+    </ion-pane>
+
+  </body>
+</html>

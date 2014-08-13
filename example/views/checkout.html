@@ -1,0 +1,37 @@
+
+
+<ion-side-menus>
+
+  <ion-side-menu-content>
+    <!-- SIDE MENU CONTENT HEADER -->
+    <ion-header-bar class="bar-dark">
+      <button class="button icon ion-arrow-left-a" ng-click='back()'></button>
+        <h1 class="title">Ionic Shopping Checkout</h1>
+      <button class='button icon ion-bag' ng-click='toggleRightSideMenu()'></button>
+    </ion-header-bar>
+    <!-- SIDE MENU CONTENT -->
+    <ion-content>
+      <ion-checkout></ion-checkout> 
+    </ion-content>
+    <!-- SIDE MENU CONTENT FOOTER -->
+    <ion-checkout-footer></ion-checkout-footer> 
+
+  </ion-side-menu-content>
+
+  <ion-side-menu side="right" width='300'>
+      <!-- SIDE MENU RIGHT CONTENT HEADER -->
+      <ion-header-bar class="bar-dark">
+        <button class="button icon ion-arrow-left-a" ng-click='back()'></button>
+        <h1 class="title">Ionic Shopping Cart</h1>
+        <button class='button icon ion-bag' ng-click='toggleRightSideMenu()'></button>
+      </ion-header-bar>
+      <!-- SIDE MENU RIGHT CONTENT -->
+        <ion-content>
+          <ion-cart products='cartProducts'></ion-cart>
+        </ion-content>
+      <!-- SIDE MENU RIGHT CONTENT FOOTER -->
+      <ion-checkout-footer></ion-checkout-footer>
+  </ion-side-menu>
+
+</ion-side-menus>
+

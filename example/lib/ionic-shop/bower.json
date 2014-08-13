@@ -1,0 +1,17 @@
+{
+  "name": "ionic-shop",
+  "version": "0.0.0",
+  "homepage": "https://github.com/JoshSGman/ionic-shop",
+  "authors": [
+    "Josh <jsgoldberg90@gmail.com>"
+  ],
+  "description": "An e-commerce library for ionic",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
