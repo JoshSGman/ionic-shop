@@ -13,5 +13,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular-mocks": "1.2.3",
+    "ionic": "~0.9.27",
+    "angular": "~1.2.12"
+  }
 }

@@ -4,6 +4,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var karma = require('gulp-karma');
 var templateCache = require('gulp-angular-templatecache');
 
 var paths = {
@@ -13,7 +14,15 @@ var paths = {
     './src/scripts/templates.js',
     './src/scripts/app.js'
   ],
-  dist : './dist/'
+  dist : './dist/',
+  testFiles : [
+    'bower_components/**/angular.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/ionic/release/js/ionic.bundle.js',
+    'bower_components/ionic/release/js/ionic-angular.js',
+    'dist/ion-cart.js',
+    'tests/**/*.js'
+  ]
 };
 
 var cssPaths = {
@@ -22,6 +31,14 @@ var cssPaths = {
   ],
   dist: './dist/styles'
 };
+
+gulp.task('test', function(){
+  return gulp.src(paths.testFiles)
+    .pipe(karma({
+      configFile: 'tests/karma.conf.js',
+      action: 'watch'
+    }));
+});
 
 gulp.task('concat', function(){
   return gulp.src(paths.cart)
@@ -86,4 +103,4 @@ gulp.task('concatAndMinifyCSS', function(){
     .pipe(gulp.dest(cssPaths.dist));
 });
 
-gulp.task('default', ['concatAndMinify', 'concatAndMinifyCSS']);
+gulp.task('default', ['concatAndMinify', 'concatAndMinifyCSS', 'test']);

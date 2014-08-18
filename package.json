@@ -12,7 +12,8 @@
     "stripe": "^2.5.2",
     "gulp-uglify": "^0.3.0",
     "karma": "^0.12.16",
-    "gulp-angular-templatecache": "^1.2.0"
+    "gulp-angular-templatecache": "^1.2.0",
+    "gulp-karma": "0.0.4"
   },
   "devDependencies": {
     "karma-jasmine": "^0.1.5",
