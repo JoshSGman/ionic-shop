@@ -1,6 +1,6 @@
 {
   "name": "ionic-shop",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/JoshSGman/ionic-shop",
   "authors": [
     "Josh <jsgoldberg90@gmail.com>"
@@ -15,8 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-mocks": "1.2.3",
-    "ionic": "~0.9.27",
-    "angular": "~1.2.12"
+    "ionic": "driftyco/ionic-bower#master"
   }
 }
