@@ -1,4 +1,4 @@
-NO LONGER SUPPORTED!!!
+#NO LONGER SUPPORTED!!!
 
 ionic-shop
 ==========
