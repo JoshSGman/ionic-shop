@@ -1,3 +1,5 @@
+NO LONGER SUPPORTED!!!
+
 ionic-shop
 ==========
 
